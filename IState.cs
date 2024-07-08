@@ -1,6 +1,6 @@
 /*
  * File: IState.cs
- * Description: Main State Interface
+ * Description: Main State Interfaces
  * Author: Dmitry Zhivaev
  * Date: 2024-Jul-08
  * License: Apache License 2.0
@@ -20,7 +20,6 @@ namespace Cuwan.StateMachine
     {
         void HandleLeft(IState sender_, IState nextState_);
         void HandleLeftWithException(IState sender_, Exception e_);
-        Exception? OptCaughtException { get; }
     }
 
     public interface IState
@@ -28,7 +27,14 @@ namespace Cuwan.StateMachine
         void Enter(IStateMachineCallback stateMachineCallback_); // No throw
 
         void Leave(bool immediately_); // No throw
-    }    
+    }
+
+    public interface IStateCatch
+    {
+        void Enter(IStateMachineCallback stateMachineCallback_, Exception e_); // No throw
+
+        void Leave(bool immediately_); // No throw
+    }
 }
 
 #nullable restore

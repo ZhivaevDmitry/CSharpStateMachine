@@ -24,7 +24,7 @@ namespace Cuwan.StateMachine
 
         public interface IStateHandlers
         {
-            IState Enter(Exception? optCaughtException_); // throws Exception
+            IState Enter(); // throws Exception
         };
 
         ////////////////////////////////////////////
@@ -44,7 +44,7 @@ namespace Cuwan.StateMachine
 
             try
             {
-                nextState = _handlers.Enter(stateMachineCallback_.OptCaughtException);
+                nextState = _handlers.Enter();
             }
             catch (Exception e_)
             {

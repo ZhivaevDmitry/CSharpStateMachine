@@ -27,8 +27,7 @@ namespace Cuwan.StateMachine
 
         public interface IStateCallback
         {
-            void        InvokeOnReadyToLeave();
-            Exception?  OptCaughtException { get; }
+            void InvokeOnReadyToLeave();
         }
 
         public interface IStateHandlers
@@ -134,8 +133,6 @@ namespace Cuwan.StateMachine
             {
                 _o.Leave();
             }
-
-            public Exception? OptCaughtException => _o._stateMachineCallback.OptCaughtException;
 
             public StateCallback(StateSimplified o_) { _o = o_; }
 

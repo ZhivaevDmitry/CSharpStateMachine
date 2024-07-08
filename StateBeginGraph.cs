@@ -19,7 +19,7 @@ namespace Cuwan.StateMachine
     public class StateBeginGraph : IState
     {
         public readonly GraphOfStates   graphInfo;
-        public readonly IState      stateAfter;
+        public readonly IState          stateAfter;
 
         public StateBeginGraph(GraphOfStates graphInfo_, IState stateAfter_)
         {
@@ -40,6 +40,7 @@ namespace Cuwan.StateMachine
             throw new InvalidOperationException();
         }
     }
+    
 }
 
 #nullable restore

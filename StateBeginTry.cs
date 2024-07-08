@@ -19,15 +19,18 @@ namespace Cuwan.StateMachine
 {
     public class StateBeginTry : IState
     {
-        public readonly IState stateStart;
-        public readonly IState stateAfter;
+        public readonly IState      stateStart;
+        public readonly IStateCatch stateCatch;
+        public readonly IState      stateAfter;
 
-        public StateBeginTry(IState stateStart_, IState stateAfter_)
+        public StateBeginTry(IState stateStart_, IStateCatch stateCatch_, IState stateAfter_)
         {
             if (stateStart_ == null) throw new NullReferenceException();
+            if (stateCatch_ == null) throw new NullReferenceException();
             if (stateAfter_ == null) throw new NullReferenceException();
 
             stateStart = stateStart_;
+            stateCatch = stateCatch_;
             stateAfter = stateAfter_;
         }
 

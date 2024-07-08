@@ -1,5 +1,5 @@
 /*
- * File: IteratorOfStateMachine.cs
+ * File: IteratorOfStates.cs
  * Description: State Machine Iterator
  * Author: Dmitry Zhivaev
  * Date: 2024-Jul-08
@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
 namespace Cuwan.StateMachine
 {
-    public class IteratorOfStateMachine
+    public class IteratorOfStates
     {
         //////////////////////////////////////////
         // Public
@@ -32,7 +32,7 @@ namespace Cuwan.StateMachine
 
         public bool IsGraphStackDamaged => isGraphStackDamaged;
 
-        public IteratorOfStateMachine()
+        public IteratorOfStates()
         {
             _stateMachineCallback = new StateMachineCallback(this);
         }
@@ -206,32 +206,37 @@ namespace Cuwan.StateMachine
 
         private void HandleLeftWithException(Exception e_)
         {
-            StateBeginTry? exceptionCatcher = null;
+            //StateBeginTry? exceptionCatcher = null;
 
-            while (exceptionCatcher == null && 0 < graphStack.Count)
-            {
-                Stack<StateBeginTry> tryStack = graphStack.Peek().Item2;
+            //while (exceptionCatcher == null && 0 < graphStack.Count)
+            //{
+            //    Stack<StateBeginTry> tryStack = graphStack.Peek().Item2;
 
-                if (tryStack.Count == 0)
-                {
-                    graphStack.Pop();
-                    continue;
-                }
+            //    if (tryStack.Count == 0)
+            //    {
+            //        graphStack.Pop();
+            //        continue;
+            //    }
 
-                exceptionCatcher = tryStack.Pop();
-            }
+            //    exceptionCatcher = tryStack.Pop();
+            //}
 
-            if (exceptionCatcher == null)
-            {
-                _uncaughtException = e_;
-                _currState = null;
-                _pendingTransitionToState = null;
-            }
-            else
-            {
-                _caughtException = e_;
-                _pendingTransitionToState = exceptionCatcher.stateAfter;
-            }
+            //if (exceptionCatcher == null)
+            //{
+            //    _uncaughtException = e_;
+            //    _currState = null;
+            //    _pendingTransitionToState = null;
+            //}
+            //else
+            //{
+            //    _caughtException = e_;
+            //    _pendingTransitionToState = exceptionCatcher.stateAfter;
+            //}
+
+
+            _uncaughtException = e_;
+            _currState  = null;
+            _pendingTransitionToState = null;
 
             Action? postHandler = _postLeftHandler;
             _postLeftHandler = null;
@@ -264,11 +269,9 @@ namespace Cuwan.StateMachine
                 _o.HandleLeftWithException(e_);
             }
 
-            public Exception? OptCaughtException => _o._caughtException;
+            public StateMachineCallback(IteratorOfStates o_) { _o = o_; }
 
-            public StateMachineCallback(IteratorOfStateMachine o_) { _o = o_; }
-
-            private readonly IteratorOfStateMachine _o;
+            private readonly IteratorOfStates _o;
         }
 
         ////////////////////////////////////////////
